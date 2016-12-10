@@ -1,6 +1,6 @@
 angular.module('templateStore.templates',['ngRoute'])
 
-.config(['$routeProvider',function($routeProvider){
+.config(['$routeProvider',function($routeProvider,$locationProvider){
 
 	$routeProvider.when('/templates',{
 		templateUrl: 'templates/templates.html',
@@ -12,9 +12,15 @@ angular.module('templateStore.templates',['ngRoute'])
 	})
 }])
 
-.controller('TemplatesCtrl',['$scope',function($scope){
+.controller('TemplatesCtrl',['$scope', '$http',function($scope,$http){
 	 
-}])
-.controller('TemplatesDetailsCtrl',['$scope',function($scope){
+	 $http.get('json/templates.json').success(function(data){
+	 	//console.log(data);
 
+	 	$scope.templates=data;
+	 	console.log(data.name);
+	 });
+}])
+.controller('TemplatesDetailsCtrl',['$scope','$routeParams',function($scope ,$routeParams){
+  	console.log("Params",$routeParams);
 }]);
